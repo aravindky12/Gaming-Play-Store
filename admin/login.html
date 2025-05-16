@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-wrapper {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      width: 100%;
+      max-width: 400px;
+      color: white;
+      animation: fadeIn 0.8s ease;
+      position: relative;
+    }
+
+    .login-wrapper h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px 12px;
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      border-radius: 10px;
+      outline: none;
+      font-size: 15px;
+      color: #fff;
+    }
+
+    .input-group label {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      color: #ccc;
+      font-size: 14px;
+      pointer-events: none;
+      transition: 0.3s;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: -10px;
+      font-size: 12px;
+      color: #f0f0f0;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #ccc;
+      font-size: 14px;
+    }
+
+    .login-wrapper button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #00c9ff;
+      background: linear-gradient(to right, #92fe9d, #00c9ff);
+      color: #000;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .login-wrapper button:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+    }
+
+    .login-wrapper .footer-note {
+      margin-top: 20px;
+      font-size: 12px;
+      text-align: center;
+      color: #ddd;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.9);}
+      to {opacity: 1; transform: scale(1);}
+    }
+
+    @media (max-width: 480px) {
+      .login-wrapper {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <form action="login.php" method="POST" class="login-wrapper">
+    <h2>Admin Login</h2>
+
+    <div class="input-group">
+      <input type="text" name="username" placeholder=" " required />
+      <label>Username</label>
+    </div>
+
+    <div class="input-group">
+      <input type="password" name="password" id="password" placeholder=" " required />
+      <label>Password</label>
+      <span class="toggle-password" onclick="togglePassword()">👁</span>
+    </div>
+
+    <button type="submit">Login</button>
+    <div class="footer-note">© 2025 Admin Portal. All rights reserved.</div>
+  </form>
+
+  <script>
+    function togglePassword() {
+      const input = document.getElementById("password");
+      input.type = input.type === "password" ? "text" : "password";
+    }
+  </script>
+</body>
+</html>
