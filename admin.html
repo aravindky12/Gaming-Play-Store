@@ -1,0 +1,46 @@
+<?php
+session_start();
+if (!isset($_SESSION["loggedin"])) {
+    header("Location: admin/login.html");
+    exit;
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Add Games</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Add New Game</h1>
+
+        <form id="game-form" enctype="multipart/form-data">
+            <input type="text" id="title" name="title" placeholder="Game Title" required>
+            <textarea id="description" name="description" placeholder="Game Description" required></textarea>
+            <input type="url" id="playstore_link" name="playstore_link" placeholder="Play Store Link" required>
+            <input type="file" id="image" name="image" accept="image/*">
+            <button type="submit">Add Game</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('game-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(document.getElementById('game-form'));
+
+            const response = await fetch('api.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            alert(result.message);
+            document.getElementById('game-form').reset();
+        });
+    </script>
+</body>
+</html>

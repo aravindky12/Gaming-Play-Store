@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- 🔹 Navbar -->
+    <nav>
+        <div class="logo">🎮 Game Portal</div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About </a></li>
+            <li><a href="#">Games</a></li>
+            <li><a href="#">Cart</a></li>
+            <li><a href="#">Types</a></li>
+            <li><a href="#">Account</a></li>
+
+
+        </ul>
+        <a href="./admin/login.html"> <button class="login-btn">Admin</button>
+        </a>
+    </nav>
+
+    <div class="search-container">
+        <input type="text" id="search" placeholder="Search Games...">
+    </div>
+
+    <div id="game-list" class="game-list"></div>
+
+
+    <script>
+        let allGames = []; // Store fetched games
+
+        async function fetchGames() {
+            const response = await fetch('api.php');
+            allGames = await response.json(); // Save to global variable
+            renderGames(allGames);
+        }
+
+        function renderGames(games) {
+            const gameList = document.getElementById('game-list');
+            gameList.innerHTML = ''; // Clear previous content
+
+            if (games.length === 0) {
+                gameList.innerHTML = '<p>No games found.</p>';
+                return;
+            }
+
+            games.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.classList.add('game-card');
+                gameCard.innerHTML = `
+                <img src="${game.image ? game.image : 'https://via.placeholder.com/200x150.png?text=No+Image'}" alt="${game.title}">
+                <h3>${game.title}</h3>
+                <p>${game.description}</p>
+                <a href="${game.playstore_link}" target="_blank">Get on Play Store</a>
+            `;
+                gameList.appendChild(gameCard);
+            });
+        }
+
+        // Filter games based on search input
+        document.getElementById('search').addEventListener('input', function () {
+            const keyword = this.value.toLowerCase();
+            const filteredGames = allGames.filter(game => game.title.toLowerCase().includes(keyword));
+            renderGames(filteredGames);
+        });
+
+        // Fetch games on page load
+        fetchGames();
+    </script>
+
+</body>
+
+</html>
